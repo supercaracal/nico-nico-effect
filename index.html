@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">google.load('prototype', '1.7')</script>
+<script type="text/javascript">google.load('scriptaculous', '1.9')</script>
+<script type="text/javascript">
+['modalwindow', 'superball', 'barrage'].each(function (file) {
+     Element.insert(document.head, new Element('script', {type: 'text/javascript', src: './' + file + '.js'}));
+});
+</script>
+<script type="text/javascript">
+var nicoNicoEffect = function () {
+
+    var e = new Element('span');
+    var maxWidth = (document.documentElement.clientWidth || document.body.clientWidth) - 270 - 30;
+    e.setStyle({
+        fontSize: 'xx-large',
+        fontWeight: 'bolder',
+        top: '-50px',
+        left: maxWidth + 'px',
+        zIndex: 500,
+        position: 'absolute',
+        cursor: 'move'
+    }).update('僕は友達が少ない');
+    Element.insert(document.body, e);
+    new Superball(e);
+
+    var comments = [
+        'キタ――（゜∀゜）――！！',
+        'キタ━ヽ（ ゜∀゜）ノ┌┛）｀Д゜）・；’━！！',
+        'ｷﾀ - .∵･(ﾟ∀ﾟ)･∵. - ｯ!!',
+        'キタ━（゜∀゜）━！',
+        'ｷﾀ━━━(Дﾟ(○=(ﾟ∀ﾟ)=○)Дﾟ)━━━!!',
+        'ｷﾀ─￣─_─￣─(ﾟ∀ﾟ)─￣─_─￣─!!!!',
+        'ｷﾀ*･゜ﾟ･*:.｡..｡.:*･゜(ﾟ∀ﾟ)ﾟ･*:.｡. .｡.:*･゜ﾟ･*!!!!',
+        'キタ━（゜∀゜）━┥東│東│東│　 │　 │　 │発│発│発│中│中│中│北┝┥北┝━（゜∀゜）━！！！！)',
+        'ｷﾀ─ｗｗﾍ√ﾚｖｖ～(ﾟ∀ﾟ)─ｗｗﾍ√ﾚｖｖ～─!!)',
+        'JR━―━―━(ﾟ∀ﾟ)━―━―━―!!',
+        'キタ━━━（゜∀゜）━（ ゜∀）━（ 　゜）━（　　）━（　　）━（゜ 　）━（∀゜ ）━（゜∀゜）━━━！！',
+        'キタキタキタキタ━━━（゜∀゜≡（゜∀゜≡゜∀゜）≡゜∀゜）━━━━！！',
+        'ｷﾀ━━(ﾟ∀ﾟ)⌒Ｙ⌒(｡Ａ｡)⌒Ｙ⌒(ﾟ∀ﾟ)⌒Ｙ⌒(｡Ａ｡)⌒Ｙ⌒(ﾟ∀ﾟ)━━!!',
+        'キタ━━━ヽ（∀゜ ）人（゜∀゜）人（ ゜∀）ノ━━━！！)',
+        'ｷﾀ━━━━━━━━m9( ﾟ∀ﾟ)━━━━━━━━!!',
+        'キタ━━━━（゜∀゜）━━━━！！'
+    ];
+
+    var magazine = new Element('div').setStyle({
+        zIndex: 2000,
+        borderRadius: '10px',
+        boxShadow: '0px 0px 30px #EFEFEF',
+        padding: '7px',
+        position: 'absolute',
+        top: '10px',
+        left: '10px',
+        backgroundColor: '#EFEFEF'
+    }).update('Magazine:&nbsp');
+
+    var magCount = comments.length;
+    var magCounter = new Element('span').update(magCount).setStyle({ fontWeight: 800, fontSize: '20px', color: '#FF3333' });
+    magazine.insert(magCounter).insert('&nbsp;/&nbsp;' + magCount);
+
+    var form = new Element('form', {action: '#', method: 'post'}).setStyle({
+        zIndex: 2000,
+        borderRadius: '10px',
+        boxShadow: '0px 0px 30px #FFFFFF',
+        padding: '7px',
+        position: 'absolute',
+        top: '10px',
+        right: '10px',
+        backgroundColor: '#EFEFEF'
+    });
+    var textF = new Element('input', { type: 'text', value: '' }).setStyle({ width: '400px' });
+    var button = new Element('input', { type: 'submit', value: 'コメント' });
+    form.observe('submit', function (e) { e.stop(); if (textF.value) new Barrage(textF.value); });
+    form.insert(textF).insert(button);
+
+    var timerIds = [];
+    var preExecute = function () {
+        Element.insert(document.body, { top: magazine });
+        Element.insert(document.body, { top: form });
+        textF.activate();
+        var wait = 0;
+        var count = 0;
+        comments.each(function (x) {
+            if (count > 10) {
+                wait += 20;
+                count = 0;
+            }
+            timerIds.push((function () { new Barrage(x); magCounter.update(--magCount); }).delay(wait));
+            ++count;
+        });
+    };
+    var postExecute = function () {
+        timerIds.each(function (x) { window.clearTimeout(x); });
+        magazine.remove();
+        form.remove();
+        magCount = comments.length;
+        magCounter.update(magCount);
+    };
+
+    var mw = new ModalWindow();
+    mw.setPreExecute(preExecute);
+    mw.setPostExecute(postExecute);
+
+    Event.observe(e, 'dblclick', mw.show.bindAsEventListener(mw));
+};
+
+Event.observe(window, 'load', nicoNicoEffect);
+</script>
+</head>
+<body>
+</body>
+</html>
