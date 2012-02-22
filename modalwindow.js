@@ -122,7 +122,7 @@ var ModalWindow = Class.create({
         this.isAnimate = true;
         this.hideSelectElement();
         this.back.show();
-        this.timerId = window.setInterval(this.animateShow.bind(this), this.INTERVAL_MSEC);
+        this.timerId = window.setInterval(this.appear.bind(this), this.INTERVAL_MSEC);
     },
 
     /**
@@ -137,7 +137,7 @@ var ModalWindow = Class.create({
         this.isAnimate = true;
         e.stop();
         this.postExecute();
-        this.timerId = window.setInterval(this.animateHide.bind(this), this.INTERVAL_MSEC);
+        this.timerId = window.setInterval(this.fade.bind(this), this.INTERVAL_MSEC);
     },
 
     /**
@@ -155,7 +155,7 @@ var ModalWindow = Class.create({
      *
      * @private
      */
-    animateShow: function () {
+    appear: function () {
         if (this.OPACITY_MAX <= this.opacity) {
             window.clearInterval(this.timerId);
             this.preExecute();
@@ -171,7 +171,7 @@ var ModalWindow = Class.create({
      *
      * @private
      */
-    animateHide: function () {
+    fade: function () {
         if (this.opacity <= 0.0) {
             window.clearInterval(this.timerId);
             this.back.hide();
