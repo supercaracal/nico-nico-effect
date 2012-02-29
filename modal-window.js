@@ -73,10 +73,12 @@ var ModalWindow = Class.create({
     /**
      *
      * @param {string} color
+     * @param {number} zIndex
      * @constructor
      * @protected
      */
-    initialize: function (color) {
+    initialize: function (color, zIndex) {
+        this.Z_INDEX_BASE = zIndex || 1000;
         this.back = new Element('div').setStyle({
             display: 'none',
             position: 'absolute',
@@ -109,6 +111,20 @@ var ModalWindow = Class.create({
      */
     setPostExecute: function (callback) {
         this.postExecute = callback;
+    },
+
+    /**
+     *
+     * @param {Element} elm
+     */
+    setInnerStyle: function (elm) {
+        var dim = elm.getDimensions();
+        elm.setStyle({
+            position: 'absolute',
+            zIndex: this.Z_INDEX_BASE + 1,
+            top: this.getScrollTop() + 30 + 'px',
+            left: this.getClientWidth() / 2 - dim.width / 2 + 'px'
+        });
     },
 
     /**
