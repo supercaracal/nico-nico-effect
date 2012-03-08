@@ -147,11 +147,11 @@ var ModalWindow = Class.create({
      * @public
      */
     hide: function (e) {
-        if (this.isAnimate || (e.type == 'keyup' && e.keyCode != Event.KEY_ESC)) {
+        if (this.isAnimate || (e && e.type == 'keyup' && e.keyCode != Event.KEY_ESC)) {
             return;
         }
         this.isAnimate = true;
-        e.stop();
+        if (e) e.stop();
         this.postExecute();
         this.timerId = window.setInterval(this.fade.bind(this), this.INTERVAL_MSEC);
     },
