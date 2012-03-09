@@ -125,6 +125,14 @@ var ModalWindow = Class.create({
             top: this.getScrollTop() + 30 + 'px',
             left: this.getClientWidth() / 2 - dim.width / 2 + 'px'
         });
+        var backHeight = this.back.getHeight();
+        var backWidth = this.back.getWidth();
+        var innerHeight = elm.getHeight();
+        var innerWidth = elm.getWidth();
+        this.back.setStyle({
+            height: (backHeight < innerHeight ? innerHeight + 200 : backHeight) + 'px',
+            width: (backWidth < innerWidth ? innerWidth + 200 : backWidth) + 'px'
+        });
     },
 
     /**
