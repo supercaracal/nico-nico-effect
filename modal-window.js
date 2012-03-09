@@ -72,6 +72,12 @@ var ModalWindow = Class.create({
 
     /**
      *
+     * @type {Element}
+     */
+    inner: null,
+
+    /**
+     *
      * @param {string} color
      * @param {number} zIndex
      * @constructor
@@ -87,7 +93,6 @@ var ModalWindow = Class.create({
             top: '0px',
             left: '0px'
         });
-        this.setupBackSize();
         this.opacity = 0.0;
         this.back.setOpacity(this.opacity);
         this.isAnimate = false;
@@ -100,6 +105,7 @@ var ModalWindow = Class.create({
     /**
      *
      * @param {Function} callback
+     * @public
      */
     setPreExecute: function (callback) {
         this.preExecute = callback;
@@ -108,6 +114,7 @@ var ModalWindow = Class.create({
     /**
      *
      * @param {Function} callback
+     * @public
      */
     setPostExecute: function (callback) {
         this.postExecute = callback;
@@ -116,22 +123,25 @@ var ModalWindow = Class.create({
     /**
      *
      * @param {Element} elm
+     * @public
+     */
+    setInner: function(elm) {
+        this.inner = elm;
+    },
+
+    /**
+     *
+     * @param {Element} elm
+     * @public
      */
     setInnerStyle: function (elm) {
-        var dim = elm.getDimensions();
-        elm.setStyle({
+        if (elm) this.setInner(elm);
+        var dim = this.inner.getDimensions();
+        this.inner.setStyle({
             position: 'absolute',
             zIndex: this.Z_INDEX_BASE + 1,
             top: this.getScrollTop() + 30 + 'px',
             left: this.getClientWidth() / 2 - dim.width / 2 + 'px'
-        });
-        var backHeight = this.back.getHeight();
-        var backWidth = this.back.getWidth();
-        var innerHeight = elm.getHeight();
-        var innerWidth = elm.getWidth();
-        this.back.setStyle({
-            height: (backHeight < innerHeight ? innerHeight + 200 : backHeight) + 'px',
-            width: (backWidth < innerWidth ? innerWidth + 200 : backWidth) + 'px'
         });
     },
 
@@ -145,6 +155,7 @@ var ModalWindow = Class.create({
         }
         this.isAnimate = true;
         this.hideSelectElement();
+        this.setupBackSize();
         this.back.show();
         this.timerId = window.setInterval(this.appear.bind(this), this.INTERVAL_MSEC);
     },
@@ -215,10 +226,24 @@ var ModalWindow = Class.create({
     setupBackSize: function (e) {
         var scrollHeight = this.getScrollHeight();
         var clientHeight = this.getClientHeight();
+        var scrollWidth = this.getScrollWidth();
+        var clientWidth = this.getClientWidth();
         this.back.setStyle({
-            height: (scrollHeight > clientHeight ? scrollHeight : clientHeight) + 'px',
-            width: this.getScrollWidth() + 'px'
+            height: (clientHeight < scrollHeight ? scrollHeight : clientHeight) + 'px',
+            width: (clientWidth < scrollWidth ? scrollWidth : clientWidth) + 'px'
         });
+        if (!this.inner) return;
+        var backHeight = this.back.getHeight();
+        var backWidth = this.back.getWidth();
+        var scrollTop = this.getScrollTop();
+        var scrollLeft = this.getScrollLeft();
+        var innerHeight = scrollTop + this.inner.getHeight();
+        var innerWidth = scrollLeft + this.inner.getWidth();
+        this.back.setStyle({
+            height: (backHeight < innerHeight ? innerHeight + 100 : backHeight) + 'px',
+            width: (backWidth < innerWidth ? innerWidth + 100 : backWidth) + 'px'
+        });
+        this.setInnerStyle();
     },
 
     /**
