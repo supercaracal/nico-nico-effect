@@ -99,7 +99,7 @@ var ModalWindow = Class.create({
         this.preExecute = Prototype.emptyFunction;
         this.postExecute = Prototype.emptyFunction;
         this.setupEventListener();
-        Element.insert(document.body, { top: this.back });
+        $(document.body).insert({ top: this.back });
     },
 
     /**
