@@ -270,7 +270,7 @@ var ModalWindow = Class.create({
      * @return {number}
      */
     getClientHeight: function () {
-        return document.documentElement.clientHeight || document.body.clientHeight;
+        return document.viewport.getHeight();
     },
 
     /**
@@ -279,7 +279,7 @@ var ModalWindow = Class.create({
      * @return {number}
      */
     getClientWidth: function () {
-        return document.documentElement.clientWidth || document.body.clientWidth;
+        return document.viewport.getWidth();
     },
 
     /**
@@ -288,7 +288,7 @@ var ModalWindow = Class.create({
      * @return {number}
      */
     getScrollTop: function () {
-        return document.documentElement.scrollTop || document.body.scrollTop;
+        return document.viewport.getScrollOffsets().last();
     },
 
     /**
@@ -297,7 +297,7 @@ var ModalWindow = Class.create({
      * @return {number}
      */
     getScrollLeft: function () {
-        return document.documentElement.scrollLeft || document.body.scrollLeft;
+        return document.viewport.getScrollOffsets().first();
     },
 
     /**
