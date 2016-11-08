@@ -1,17 +1,18 @@
 {
-  "name": "niconico_effect",
+  "name": "nico-nico-effect",
   "version": "0.0.1",
   "scripts": {
-    "start" : "node web.js",
+    "start": "node web.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.2.x"
+    "node": "7.0.0",
+    "npm": "4.0.2"
   },
   "dependencies": {
-    "express": "3.0.x"
+    "express": "4.14.0"
   },
-  "author": "PocaPocaUnty",
-  "license": "BSD"
+  "repository": "https://github.com/supercaracal/nico-nico-effect.git",
+  "author": "Taishi Kasuga",
+  "license": "UNLICENSED"
 }
