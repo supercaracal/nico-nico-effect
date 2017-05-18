@@ -58,8 +58,8 @@
 
       this.timerIds = [];
       this.modalWindow = new global.ModalWindow();
-      this.modalWindow.setPreExecute(this.beforeModalShow.bind(this));
-      this.modalWindow.setPostExecute(this.afterModalShow.bind(this));
+      this.modalWindow.setPreExecute(this.afterModalShow.bind(this));
+      this.modalWindow.setPostExecute(this.beforeModalHide.bind(this));
       this.modalWindow.ready();
 
       Event.observe(this.triggerElement, 'dblclick', this.modalWindow.show.bindAsEventListener(this.modalWindow));
@@ -123,7 +123,7 @@
       });
     },
 
-    beforeModalShow: function beforeModalShow() {
+    afterModalShow: function afterModalShow() {
       var wait = 0;
       var count = 0;
       Element.insert(global.document.body, { top: this.magazine });
@@ -143,7 +143,7 @@
       }).bind(this));
     },
 
-    afterModalShow: function afterModalShow() {
+    beforeModalHide: function beforeModalHide() {
       this.timerIds.each(function fc(x) { window.clearTimeout(x); });
       this.magazine.remove();
       this.form.remove();
