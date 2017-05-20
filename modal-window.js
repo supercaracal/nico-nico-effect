@@ -20,7 +20,7 @@
 
     initialize: function initialize(color, zIndex) {
       this.Z_INDEX_BASE = zIndex || 1000;
-      this.back = new Element('div').setStyle({
+      this.back = new global.Element('div').setStyle({
         display: 'none',
         position: 'absolute',
         zIndex: this.Z_INDEX_BASE,
@@ -37,7 +37,7 @@
 
     ready: function ready() {
       this.setupEventListener();
-      global.$(document.body).insert({ top: this.back });
+      global.$(global.document.body).insert({ top: this.back });
     },
 
     setPreExecute: function setPreExecute(callback) {
@@ -51,8 +51,8 @@
     setupEventListener: function setupEventListener() {
       var handler = this.hide.bindAsEventListener(this);
       this.back.observe('click', handler);
-      Event.observe(document.body, 'keyup', handler);
-      Event.observe(global, 'resize', this.setupBackSize.bindAsEventListener(this));
+      global.Event.observe(global.document.body, 'keyup', handler);
+      global.Event.observe(global, 'resize', this.setupBackSize.bindAsEventListener(this));
     },
 
     setInner: function setInner(elm) {
@@ -83,7 +83,7 @@
     },
 
     hide: function hide(e) {
-      if (this.isAnimate || (e && e.type === 'keyup' && e.keyCode !== Event.KEY_ESC)) {
+      if (this.isAnimate || (e && e.type === 'keyup' && e.keyCode !== global.Event.KEY_ESC)) {
         return;
       }
       this.isAnimate = true;
@@ -145,27 +145,27 @@
     },
 
     getScrollHeight: function getScrollHeight() {
-      return document.documentElement.scrollHeight || document.body.scrollHeight;
+      return global.document.documentElement.scrollHeight || global.document.body.scrollHeight;
     },
 
     getScrollWidth: function getScrollWidth() {
-      return document.documentElement.scrollWidth || document.body.scrollWidth;
+      return global.document.documentElement.scrollWidth || global.document.body.scrollWidth;
     },
 
     getClientHeight: function getClientHeight() {
-      return document.viewport.getHeight();
+      return global.document.viewport.getHeight();
     },
 
     getClientWidth: function getClientWidth() {
-      return document.viewport.getWidth();
+      return global.document.viewport.getWidth();
     },
 
     getScrollTop: function getScrollTop() {
-      return document.viewport.getScrollOffsets().last();
+      return global.document.viewport.getScrollOffsets().last();
     },
 
     getScrollLeft: function getScrollLeft() {
-      return document.viewport.getScrollOffsets().first();
+      return global.document.viewport.getScrollOffsets().first();
     },
 
     hideSelectElement: function hideSelectElement() {

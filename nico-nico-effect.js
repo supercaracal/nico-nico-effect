@@ -36,7 +36,7 @@
 
     initialize: function initialize() {
       this.triggerElement = this.createTriggerElement();
-      Element.insert(global.document.body, this.triggerElement);
+      global.Element.insert(global.document.body, this.triggerElement);
       this.superBall = new global.Superball(this.triggerElement);
       this.superBall.ready();
 
@@ -62,11 +62,11 @@
       this.modalWindow.setPostExecute(this.beforeModalHide.bind(this));
       this.modalWindow.ready();
 
-      Event.observe(this.triggerElement, 'dblclick', this.modalWindow.show.bindAsEventListener(this.modalWindow));
+      global.Event.observe(this.triggerElement, 'dblclick', this.modalWindow.show.bindAsEventListener(this.modalWindow));
     },
 
     createTriggerElement: function createTriggerElement() {
-      var e = new Element('span');
+      var e = new global.Element('span');
       var maxWidth = (global.document.documentElement.clientWidth ||
         global.document.body.clientWidth) - 270 - 30;
       e.setStyle({
@@ -83,7 +83,7 @@
     },
 
     createMagazine: function createMagazine() {
-      var e = new Element('div');
+      var e = new global.Element('div');
       e.setStyle({
         zIndex: 2000,
         borderRadius: '10px',
@@ -99,19 +99,19 @@
     },
 
     createMagazineCounter: function createMagazineCounter(count) {
-      return new Element('span').update(count).setStyle({ fontWeight: 800, fontSize: '20px', color: '#FF3333' });
+      return new global.Element('span').update(count).setStyle({ fontWeight: 800, fontSize: '20px', color: '#FF3333' });
     },
 
     createTextField: function createTextField() {
-      return new Element('input', { type: 'text', value: '' }).setStyle({ width: '400px' });
+      return new global.Element('input', { type: 'text', value: '' }).setStyle({ width: '400px' });
     },
 
     createSubmitButton: function createSubmitButton() {
-      return new Element('input', { type: 'submit', value: 'コメント' });
+      return new global.Element('input', { type: 'submit', value: 'コメント' });
     },
 
     createForm: function createForm() {
-      return new Element('form', { action: '#', method: 'post' }).setStyle({
+      return new global.Element('form', { action: '#', method: 'post' }).setStyle({
         zIndex: 2000,
         borderRadius: '10px',
         boxShadow: '0px 0px 30px #FFFFFF',
@@ -126,8 +126,8 @@
     afterModalShow: function afterModalShow() {
       var wait = 0;
       var count = 0;
-      Element.insert(global.document.body, { top: this.magazine });
-      Element.insert(global.document.body, { top: this.form });
+      global.Element.insert(global.document.body, { top: this.magazine });
+      global.Element.insert(global.document.body, { top: this.form });
       this.textField.activate();
       this.COMMENTS.each((function fb(x) {
         if (count > 10) {

@@ -19,9 +19,12 @@
 
     initialize: function initialize(text) {
       this.text = text;
-      this.height = (document.documentElement.clientHeight || document.body.clientHeight);
-      this.width = (document.documentElement.clientWidth || document.body.clientWidth);
-      this.scrollTop = (document.documentElement.scrollTop || document.body.scrollTop);
+      this.height = (global.document.documentElement.clientHeight ||
+          global.document.body.clientHeight);
+      this.width = (global.document.documentElement.clientWidth ||
+          global.document.body.clientWidth);
+      this.scrollTop = (global.document.documentElement.scrollTop ||
+          global.document.body.scrollTop);
       this.createElem();
       this.seed = this.getSeed();
     },
@@ -81,7 +84,7 @@
           color = '#FFFFFF';
           break;
       }
-      this.elm = new Element('span').setStyle({
+      this.elm = new global.Element('span').setStyle({
         color: color,
         fontSize: fontSize + 'px',
         fontWeight: 'bolder',
@@ -91,7 +94,7 @@
         position: 'absolute',
         whiteSpace: 'nowrap'
       }).update(this.text);
-      Element.insert(document.body, { top: this.elm });
+      global.Element.insert(global.document.body, { top: this.elm });
       this.dim = this.elm.getDimensions();
       if (this.scrollTop + this.height < topPos + this.dim.height) {
         this.elm.setStyle({ top: ((this.scrollTop + this.height) - this.dim.height) + 'px' });

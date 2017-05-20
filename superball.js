@@ -25,8 +25,8 @@
 
     fall: function fall() {
       var dim = this.elm.getDimensions();
-      var max = (document.documentElement.clientHeight || document.body.clientHeight) -
-        dim.height - 30;
+      var max = (global.document.documentElement.clientHeight ||
+          global.document.body.clientHeight) - dim.height - 30;
       var self = this;
       var isDown = true;
       var inc = 1;
